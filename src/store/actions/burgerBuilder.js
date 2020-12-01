@@ -4,30 +4,43 @@ import axios from 'axios';
 export const addIngredient = (name) => {
   return {
     type: actionTypes.ADD_INGREDIENT,
-    ingredient: name
-  }
-}
+    ingredient: name,
+  };
+};
 
 export const removeIngredient = (name) => {
   return {
     type: actionTypes.REMOVE_INGREDIENT,
-    ingredient: name
-  }
-}; 
+    ingredient: name,
+  };
+};
 
 const setIngredients = (ingredients) => {
-  return {type: actionTypes.INIT_INGREDIENTS, ingredients: { ...ingredients }}
+  return {
+    type: actionTypes.INIT_INGREDIENTS,
+    ingredients: { ...ingredients },
+  };
+};
+
+const setIngredientsFailed = () => {
+  return { type: actionTypes.INIT_INGREDIENTS_FAILED };
 };
 
 export const initIngredients = () => {
-    return (dispatch) => {
-      axios
+  return (dispatch) => {
+    axios
       .get('https://burgerbuilder-c8226.firebaseio.com/ingredients.json')
       .then((response) => {
-        dispatch(setIngredients(response.data));
+        let ingredients = {
+          salad: response.data.salad,
+          bacon: response.data.bacon,
+          cheese: response.data.cheese,
+          meat: response.data.meat,
+        };
+        dispatch(setIngredients(ingredients));
       })
       .catch((error) => {
-        console.log(error);
+        dispatch(setIngredientsFailed());
       });
-    };
+  };
 };

@@ -1,6 +1,7 @@
 const initialState = {
   ingredients: null,
   totalPrice: 4,
+  error: false,
 };
 
 const INGREDIENT_PRICES = {
@@ -11,6 +12,7 @@ const INGREDIENT_PRICES = {
 };
 
 const reducer = (state = initialState, action) => {
+  console.log('BURGER BUILDER REDUCER TRIGGERED!');
   switch (action.type) {
     case 'ADD_INGREDIENT':
       return {
@@ -19,7 +21,7 @@ const reducer = (state = initialState, action) => {
           ...state.ingredients,
           [action.ingredient]: state.ingredients[action.ingredient] + 1,
         },
-        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredient]
+        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredient],
       };
     case 'REMOVE_INGREDIENT':
       return {
@@ -28,10 +30,12 @@ const reducer = (state = initialState, action) => {
           ...state.ingredients,
           [action.ingredient]: state.ingredients[action.ingredient] - 1,
         },
-        totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredient]
+        totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredient],
       };
     case 'INIT_INGREDIENTS':
-      return {...state, ingredients: {...action.ingredients}}
+      return { ...state, ingredients: { ...action.ingredients }, error: false };
+    case 'INIT_INGREDIENTS_FAILED':
+      return { ...state, error: true };
     default:
       return state;
   }
