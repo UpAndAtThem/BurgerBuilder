@@ -12,7 +12,6 @@ const INGREDIENT_PRICES = {
 };
 
 const reducer = (state = initialState, action) => {
-  console.log('BURGER BUILDER REDUCER TRIGGERED!');
   switch (action.type) {
     case 'ADD_INGREDIENT':
       return {
@@ -33,7 +32,7 @@ const reducer = (state = initialState, action) => {
         totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredient],
       };
     case 'INIT_INGREDIENTS':
-      return { ...state, ingredients: { ...action.ingredients }, error: false };
+      return { ...state, ingredients: { ...action.ingredients }, error: false, totalPrice: 4 };
     case 'INIT_INGREDIENTS_FAILED':
       return { ...state, error: true };
     default:
