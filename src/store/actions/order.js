@@ -13,18 +13,26 @@ export const initOrders = () => {
             id: key,
           });
         }
-        dispatch({
-          type: actionTypes.INIT_ORDERS_SUCCESS,
-          orders: fetchedOrders,
-        });
+        dispatch(initOrdersSuccess(fetchedOrders));
       })
       .catch((err) => {
-        dispatch({ 
-          type: actionTypes.INIT_ORDERS_FAIL,
-          orders: [] 
-        });
+        dispatch(initOrdersFail());
       });
   };
+};
+
+export const initOrdersSuccess = (orders) => {
+  return {
+    type: actionTypes.INIT_ORDERS_SUCCESS,
+    orders: orders
+  }
+};
+
+export const initOrdersFail = () => {
+  return { 
+    type: actionTypes.INIT_ORDERS_FAIL,
+    orders: [] 
+  }
 };
 
 export const purchaseBurgerSuccess = (id, orderData) => {

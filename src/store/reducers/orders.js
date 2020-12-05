@@ -8,6 +8,11 @@ const initialState = {
 
 const orderReducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.INIT_ORDERS_START:
+      return {
+        ...state,
+        loading: true
+      };
     case actionTypes.INIT_ORDERS_SUCCESS:
       return {
         ...state,

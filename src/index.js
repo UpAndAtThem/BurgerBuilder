@@ -8,7 +8,6 @@ import thunk from 'redux-thunk'
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-// import reducer from './store/reducers/reducer';
 import burgerBuilder from './store/reducers/burgerBuilder';
 import order from './store/reducers/orders';
 
