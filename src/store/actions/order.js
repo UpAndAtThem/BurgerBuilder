@@ -1,6 +1,13 @@
 import * as actionTypes from '../actions/actionTypes';
 import axios from '../../axios-orders';
 
+export const initOrdersStart = () => {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.INIT_ORDERS_START });
+    dispatch(initOrders());
+  };
+};
+
 export const initOrders = () => {
   return (dispatch) => {
     axios
@@ -9,7 +16,7 @@ export const initOrders = () => {
         const fetchedOrders = [];
         for (let key in res.data) {
           fetchedOrders.push({
-            ...res.data[key],
+            ...res.data[key], 
             id: key,
           });
         }
