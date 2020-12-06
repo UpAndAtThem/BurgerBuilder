@@ -47,16 +47,11 @@ const initIngredientsFailed = (state, action) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'ADD_INGREDIENT':
-      return addIngredient(state, action);
-    case 'REMOVE_INGREDIENT':
-      return removeIngredient(state, action);
-    case 'INIT_INGREDIENTS':
-      return initIngredients(state, action);
-    case 'INIT_INGREDIENTS_FAILED':
-      return initIngredientsFailed(state, action);
-    default:
-      return state;
+    case 'ADD_INGREDIENT': return addIngredient(state, action);
+    case 'REMOVE_INGREDIENT': return removeIngredient(state, action);
+    case 'INIT_INGREDIENTS': return initIngredients(state, action);
+    case 'INIT_INGREDIENTS_FAILED': return initIngredientsFailed(state, action);
+    default: return state;
   }
 };
 
