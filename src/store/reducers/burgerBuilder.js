@@ -13,10 +13,8 @@ const INGREDIENT_PRICES = {
   bacon: 0.7,
 };
 
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'ADD_INGREDIENT':
-      const updatedIngredientAdded = { ...state.ingredients, [action.ingredient]: state.ingredients[action.ingredient] + 1}
+const addIngredient = (state, action) => {
+  const updatedIngredientAdded = { ...state.ingredients, [action.ingredient]: state.ingredients[action.ingredient] + 1}
       const updatedIngredientsAdded = updateObject(state.ingredient, updatedIngredientAdded);
 
       const updatedState = {
@@ -25,8 +23,10 @@ const reducer = (state = initialState, action) => {
       }
 
       return updateObject(state, updatedState);
-    case 'REMOVE_INGREDIENT':
-      const updatedIngredientRemoved = { ...state.ingredients, [action.ingredient]: state.ingredients[action.ingredient] - 1};
+}
+
+const removeIngredient = (state, action) => {
+  const updatedIngredientRemoved = { ...state.ingredients, [action.ingredient]: state.ingredients[action.ingredient] - 1};
       const updatedIngredientsRemoved = updateObject(state.ingredients, updatedIngredientRemoved);
 
       const updatedStateRemoved = {
@@ -35,10 +35,26 @@ const reducer = (state = initialState, action) => {
       };
       
       return updateObject(state, updatedStateRemoved);
+}
+
+const initIngredients = (state, action) => {
+  return updateObject(state, {ingredients: { ...action.ingredients }, error: false, totalPrice: 4 })
+}
+
+const initIngredientsFailed = (state, action) => {
+  return updateObject(state, {error: true});
+};
+
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case 'ADD_INGREDIENT':
+      return addIngredient(state, action);
+    case 'REMOVE_INGREDIENT':
+      return removeIngredient(state, action);
     case 'INIT_INGREDIENTS':
-      return updateObject(state, {ingredients: { ...action.ingredients }, error: false, totalPrice: 4 })
+      return initIngredients(state, action);
     case 'INIT_INGREDIENTS_FAILED':
-      return updateObject(state, {error: true});
+      return initIngredientsFailed(state, action);
     default:
       return state;
   }
