@@ -12,7 +12,10 @@ export const authenticate = (email, pass, isSignup) => {
                             `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_FIREBASE_API_KEY}`
 
     let credentialsRes = await axios.post(apiURL, {email: email, password: pass, returnSecureToken: true})
-                                    .catch(e => dispatch(authenticateFail(e)));
+                                    .catch(e => {
+                                      return dispatch(authenticateFail(e.response.data.error))
+                                    });
+
     if (credentialsRes.data) {
       dispatch(authenticateSuccess(credentialsRes.data))
     }
@@ -20,7 +23,7 @@ export const authenticate = (email, pass, isSignup) => {
 };
 
 export const authenticateSuccess = (payload) => {
-  return {type: actionTypes.AUTHENTICATE_SUCCESS, data: payload};
+  return {type: actionTypes.AUTHENTICATE_SUCCESS, token: payload.idToken, userId: payload.localId};
 }
 
 export const authenticateFail = (error) => {

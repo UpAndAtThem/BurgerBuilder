@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Button from '../../components/UI/Button/Button';
 import Input from '../../components/UI/Input/Input';
+import Spinner from '../../components/UI/Spinner/Spinner';
 import classes from './Auth.css';
 
 import * as actions from '../../store/actions/index';
@@ -101,7 +102,7 @@ class Auth extends Component {
   switchAuthModeHandler = () => {
     this.setState((prevState) => {
       return {
-        isSignup: !prevState.isSignup
+        isSignup: !prevState.isSignup,
       };
     });
   };
@@ -115,6 +116,14 @@ class Auth extends Component {
         config: this.state.controls[key],
       });
     }
+
+    let errorMess = null;
+
+    if (this.props.error) {
+      errorMess = <p className={classes.ErrorMess}>ERROR: {this.props.error.message}</p>;
+    }
+
+    let spinner = this.props.loading ? <Spinner /> : null;
 
     let formElementsJSX = formElementsArray.map((formElement) => {
       return (
@@ -140,6 +149,8 @@ class Auth extends Component {
         <Button clicked={this.switchAuthModeHandler} btnType='Danger'>
           SWITCH TO {this.state.isSignup ? 'LOGIN' : 'SIGNUP'}
         </Button>
+        { errorMess }
+        {spinner}
       </div>
     );
   }
@@ -147,13 +158,15 @@ class Auth extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    loading: state.loading,
+    loading: state.auth.loading,
+    error: state.auth.error,
   };
 };
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAuth: (email, password, method) => {
-      dispatch(actions.authenticate(email, password, method));
+    onAuth: (email, password, isSignup) => {
+      dispatch(actions.authenticate(email, password, isSignup));
     },
   };
 };
