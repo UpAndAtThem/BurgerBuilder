@@ -11,9 +11,6 @@
     padding: 15px;
 }
 
-.Button:first-of-type {
-}
-
 .Button:disabled {
     color: #ccc;
     cursor: not-allowed;
