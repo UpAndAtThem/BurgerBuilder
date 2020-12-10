@@ -1,17 +1,18 @@
 import * as actionTypes from '../actions/actionTypes';
 import axios from '../../axios-orders';
 
-export const initOrdersStart = () => {
+export const initOrdersStart = (token) => {
   return (dispatch) => {
     dispatch({ type: actionTypes.INIT_ORDERS_START });
-    dispatch(initOrders());
+    dispatch(initOrders(token));
   };
 };
 
-export const initOrders = () => {
+export const initOrders = (token) => {
+  console.log('TOKEN: ', token);
   return (dispatch) => {
     axios
-      .get('https://burgerbuilder-c8226.firebaseio.com/orders.json')
+      .get('/orders.json?auth=' + token)
       .then((res) => {
         const fetchedOrders = [];
         for (let key in res.data) {
