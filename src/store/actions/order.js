@@ -9,7 +9,6 @@ export const initOrdersStart = (token) => {
 };
 
 export const initOrders = (token) => {
-  console.log('TOKEN: ', token);
   return (dispatch) => {
     axios
       .get('/orders.json?auth=' + token)
