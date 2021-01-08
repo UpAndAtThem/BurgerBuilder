@@ -8,11 +8,8 @@
   box-sizing: border-box;
 }
 
-.ErrorMess {
-}
-
 @media (min-width: 600px) {
   .Auth {
-      width: 500px;
+    width: 500px;
   }
 }

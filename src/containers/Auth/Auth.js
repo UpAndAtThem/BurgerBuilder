@@ -120,7 +120,9 @@ class Auth extends Component {
     let errorMess = null;
 
     if (this.props.error) {
-      errorMess = <p className={classes.ErrorMess}>ERROR: {this.props.error.message}</p>;
+      errorMess = (
+        <p className={classes.ErrorMess}>ERROR: {this.props.error.message}</p>
+      );
     }
 
     let spinner = this.props.loading ? <Spinner /> : null;
@@ -149,7 +151,7 @@ class Auth extends Component {
         <Button clicked={this.switchAuthModeHandler} btnType='Danger'>
           SWITCH TO {this.state.isSignup ? 'LOGIN' : 'SIGNUP'}
         </Button>
-        { errorMess }
+        {errorMess}
         {spinner}
       </div>
     );

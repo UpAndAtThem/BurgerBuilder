@@ -14,44 +14,65 @@ const INGREDIENT_PRICES = {
 };
 
 const addIngredient = (state, action) => {
-  const updatedIngredientAdded = { ...state.ingredients, [action.ingredient]: state.ingredients[action.ingredient] + 1}
-      const updatedIngredientsAdded = updateObject(state.ingredient, updatedIngredientAdded);
+  const updatedIngredientAdded = {
+    ...state.ingredients,
+    [action.ingredient]: state.ingredients[action.ingredient] + 1,
+  };
+  const updatedIngredientsAdded = updateObject(
+    state.ingredient,
+    updatedIngredientAdded
+  );
 
-      const updatedState = {
-        ingredients: updatedIngredientsAdded,
-        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredient]
-      }
+  const updatedState = {
+    ingredients: updatedIngredientsAdded,
+    totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredient],
+  };
 
-      return updateObject(state, updatedState);
-}
+  return updateObject(state, updatedState);
+};
 
 const removeIngredient = (state, action) => {
-  const updatedIngredientRemoved = { ...state.ingredients, [action.ingredient]: state.ingredients[action.ingredient] - 1};
-      const updatedIngredientsRemoved = updateObject(state.ingredients, updatedIngredientRemoved);
+  const updatedIngredientRemoved = {
+    ...state.ingredients,
+    [action.ingredient]: state.ingredients[action.ingredient] - 1,
+  };
+  const updatedIngredientsRemoved = updateObject(
+    state.ingredients,
+    updatedIngredientRemoved
+  );
 
-      const updatedStateRemoved = {
-        ingredients: updatedIngredientsRemoved,
-        totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredient]
-      };
-      
-      return updateObject(state, updatedStateRemoved);
-}
+  const updatedStateRemoved = {
+    ingredients: updatedIngredientsRemoved,
+    totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredient],
+  };
+
+  return updateObject(state, updatedStateRemoved);
+};
 
 const initIngredients = (state, action) => {
-  return updateObject(state, {ingredients: { ...action.ingredients }, error: false, totalPrice: 4 })
-}
+  return updateObject(state, {
+    ingredients: { ...action.ingredients },
+    error: false,
+    totalPrice: 4,
+  });
+};
 
 const initIngredientsFailed = (state, action) => {
-  return updateObject(state, {error: true});
+  return updateObject(state, { error: true });
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'ADD_INGREDIENT': return addIngredient(state, action);
-    case 'REMOVE_INGREDIENT': return removeIngredient(state, action);
-    case 'INIT_INGREDIENTS': return initIngredients(state, action);
-    case 'INIT_INGREDIENTS_FAILED': return initIngredientsFailed(state, action);
-    default: return state;
+    case 'ADD_INGREDIENT':
+      return addIngredient(state, action);
+    case 'REMOVE_INGREDIENT':
+      return removeIngredient(state, action);
+    case 'INIT_INGREDIENTS':
+      return initIngredients(state, action);
+    case 'INIT_INGREDIENTS_FAILED':
+      return initIngredientsFailed(state, action);
+    default:
+      return state;
   }
 };
 

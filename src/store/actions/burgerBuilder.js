@@ -37,7 +37,7 @@ export const initIngredients = () => {
           cheese: response.data.cheese,
           meat: response.data.meat,
         };
-        
+
         dispatch(setIngredients(ingredients));
       })
       .catch((error) => {

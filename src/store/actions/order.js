@@ -16,7 +16,7 @@ export const initOrders = (token) => {
         const fetchedOrders = [];
         for (let key in res.data) {
           fetchedOrders.push({
-            ...res.data[key], 
+            ...res.data[key],
             id: key,
           });
         }
@@ -31,15 +31,15 @@ export const initOrders = (token) => {
 export const initOrdersSuccess = (orders) => {
   return {
     type: actionTypes.INIT_ORDERS_SUCCESS,
-    orders: orders
-  }
+    orders: orders,
+  };
 };
 
 export const initOrdersFail = () => {
-  return { 
+  return {
     type: actionTypes.INIT_ORDERS_FAIL,
-    orders: [] 
-  }
+    orders: [],
+  };
 };
 
 export const purchaseBurgerSuccess = (id, orderData) => {
